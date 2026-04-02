@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/presentation/chek_list/check_lists.dart';
-import 'package:flutter_application_military_directory/presentation/drugs/drug_screen.dart';
-import 'package:flutter_application_military_directory/presentation/main_screen.dart';
+import 'package:flutter_application_military_directory/navigation/app_routes.dart';
+
 import 'package:flutter_application_military_directory/presentation/widgets/bottom_navigation.dart';
 
 class AppShell extends StatefulWidget {
@@ -13,10 +12,10 @@ class AppShell extends StatefulWidget {
 
 class _AppShellState extends State<AppShell> {
   int _currentIndex = 0;
-  final List<Widget> _screens = const [
-    MainScreen(),
-    DrugScreen(),
-    CheckLists(),
+  List<AppScreen> get _bottomNavScreens => [
+    AppScreen.main,
+    AppScreen.drugs,
+    AppScreen.checklists,
   ];
   void _onTap(int index) {
     setState(() {
@@ -26,11 +25,17 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
+    final currentScreen = _bottomNavScreens[_currentIndex];
+
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _bottomNavScreens.map((screen) => screen.screen).toList(),
+      ),
       bottomNavigationBar: BottomNavigation(
         currentIndex: _currentIndex,
         onTap: _onTap,
+        screens: _bottomNavScreens,
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class DrugModel {
   int id;
   String name;
@@ -10,10 +12,14 @@ class DrugModel {
   String dosage;
   String contraindications;
   String releaseForm;
+  String interaction;
+  String caution;
+  String additionial;
 
   DrugModel({
     required this.description,
     required this.group,
+    required this.additionial,
     required this.id,
     required this.latinName,
     required this.name,
@@ -23,5 +29,7 @@ class DrugModel {
     required this.contraindications,
     required this.dosage,
     required this.releaseForm,
+    required this.interaction,
+    required this.caution,
   });
 }

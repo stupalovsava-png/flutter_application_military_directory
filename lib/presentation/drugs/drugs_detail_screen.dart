@@ -85,6 +85,9 @@ class DrugDetailScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 28),
+              // Форма выпуска
+              _buildSectionTitle('Способ действия'),
+              Text(drug.description, style: const TextStyle(fontSize: 16)),
 
               // Форма выпуска
               _buildSectionTitle('Форма выпуска'),
@@ -102,18 +105,22 @@ class DrugDetailScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               // Дозировка и применение
-              _buildSectionTitle('Дозировка и применение'),
-              Text(
-                drug.dosage,
-                style: const TextStyle(fontSize: 16, height: 1.5),
-              ),
-
+              // _buildSectionTitle('Дозировка и применение'),
+              // Text(
+              //   drug.dosage,
+              //   style: const TextStyle(fontSize: 16, height: 1.5),
+              // ),
               const SizedBox(height: 24),
 
               // Противопоказания (в жёлтой плашке, как на скриншоте)
               _buildWarningSection(
                 title: 'Противопоказания',
                 content: drug.contraindications,
+              ),
+              _buildSectionTitle('С осторожностью'),
+              Text(
+                drug.caution,
+                style: const TextStyle(fontSize: 16, height: 1.5),
               ),
 
               const SizedBox(height: 24),
@@ -122,6 +129,11 @@ class DrugDetailScreen extends StatelessWidget {
               _buildSectionTitle('Побочные эффекты'),
               Text(
                 drug.sideEffects,
+                style: const TextStyle(fontSize: 16, height: 1.5),
+              ),
+              _buildSectionTitle('Подробности'),
+              Text(
+                drug.additionial,
                 style: const TextStyle(fontSize: 16, height: 1.5),
               ),
             ],
