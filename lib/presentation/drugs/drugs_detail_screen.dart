@@ -148,11 +148,7 @@ class DrugDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-        ),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -181,13 +177,21 @@ class DrugDetailScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: Colors.orange.shade900,
+                  color: const Color.fromARGB(255, 230, 81, 0),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(content, style: const TextStyle(fontSize: 16, height: 1.5)),
+          Text(
+            content,
+            style: const TextStyle(
+              fontSize: 16,
+              height: 1.5,
+              fontWeight: FontWeight.w400,
+              color: Color.fromARGB(255, 230, 81, 0),
+            ),
+          ),
         ],
       ),
     );

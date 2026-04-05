@@ -10,7 +10,11 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Убираем Главную из списка карточек
-    final visibleScreens = [AppScreen.drugs, AppScreen.checklists];
+    final visibleScreens = [
+      AppScreen.drugs,
+      AppScreen.checklists,
+      AppScreen.setting,
+    ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Войсковой врач')),
@@ -38,6 +42,8 @@ class MainScreen extends StatelessWidget {
                     context.go(RouteNames.drugs);
                   } else if (screen == AppScreen.checklists) {
                     context.go(RouteNames.chekLists);
+                  } else if (screen == AppScreen.setting) {
+                    context.go(RouteNames.setting);
                   }
                 },
                 child: Column(

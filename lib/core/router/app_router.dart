@@ -1,3 +1,4 @@
+import 'package:flutter_application_military_directory/presentation/settings/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_application_military_directory/core/router/route_names.dart';
@@ -32,6 +33,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -41,6 +43,10 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: RouteNames.setting,
+      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );
