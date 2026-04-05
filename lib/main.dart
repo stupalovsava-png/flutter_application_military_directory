@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/presentation/app_shell.dart';
+import 'package:flutter_application_military_directory/core/theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Импортируем готовый роутер
+import 'package:flutter_application_military_directory/core/router/app_router.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -10,10 +15,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      title: 'Войсковой врач',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
 
-      home: AppShell(),
+      routerConfig: appRouter, // ← используем напрямую
     );
   }
 }

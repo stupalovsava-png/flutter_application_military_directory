@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class DrugModel {
   int id;
   String name;

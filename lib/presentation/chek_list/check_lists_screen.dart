@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/data/drugs/drug_model.dart';
-import 'package:flutter_application_military_directory/data/drugs/drugs_data.dart';
-import 'package:flutter_application_military_directory/presentation/widgets/drug_card.dart';
+import 'package:flutter_application_military_directory/data/chek_lists.dart/check_list_model.dart';
+import 'package:flutter_application_military_directory/data/chek_lists.dart/chek_list_data.dart';
+import 'package:flutter_application_military_directory/presentation/widgets/check_lists_card.dart';
 
-class DrugScreen extends StatefulWidget {
-  const DrugScreen({super.key});
+class CheckLists extends StatefulWidget {
+  const CheckLists({super.key});
 
   @override
-  State<DrugScreen> createState() => _DrugScreenState();
+  State<CheckLists> createState() => _CheckListsState();
 }
 
-class _DrugScreenState extends State<DrugScreen> {
+class _CheckListsState extends State<CheckLists> {
   final TextEditingController _searchController = TextEditingController();
-  List<DrugModel> _filteredDrugs = [];
-
+  List<CheckListModel> _filteredChek = [];
   @override
   void initState() {
     super.initState();
-    _filteredDrugs = List.from(drugList);
-    _searchController.addListener(_filterDrugs);
+    _filteredChek = List.from(checkLists);
+    _searchController.addListener(_filterChek);
   }
 
-  void _filterDrugs() {
+  void _filterChek() {
     final query = _searchController.text.trim().toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        _filteredDrugs = List.from(drugList);
+        _filteredChek = List.from(checkLists);
       } else {
-        _filteredDrugs = drugList.where((drug) {
-          return drug.name.toLowerCase().contains(query) ||
-              drug.latinName.toLowerCase().contains(query);
+        _filteredChek = checkLists.where((chek) {
+          return chek.title.toLowerCase().contains(query) ||
+              chek.category.toLowerCase().contains(query);
         }).toList();
       }
     });
@@ -48,10 +47,8 @@ class _DrugScreenState extends State<DrugScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsetsGeometry.all(12),
               child: TextField(
-                cursorColor: Colors.grey,
-
                 controller: _searchController,
                 decoration: InputDecoration(
                   hoverColor: Colors.grey,
@@ -69,7 +66,7 @@ class _DrugScreenState extends State<DrugScreen> {
               ),
             ),
             Expanded(
-              child: _filteredDrugs.isEmpty
+              child: _filteredChek.isEmpty
                   ? const Center(
                       child: Text(
                         'Ничего не найдено',
@@ -77,10 +74,10 @@ class _DrugScreenState extends State<DrugScreen> {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: _filteredDrugs.length,
+                      itemCount: _filteredChek.length,
                       itemBuilder: (context, index) {
-                        final drug = drugList[index];
-                        return DrugCard(drug: drug);
+                        final check = checkLists[index];
+                        return CheckListsCard(check: check);
                       },
                     ),
             ),

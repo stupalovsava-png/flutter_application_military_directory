@@ -38,7 +38,6 @@ class DrugDetailScreen extends StatelessWidget {
 
               Row(
                 children: [
-                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,4 +1,3 @@
-// bottom_navigation.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/navigation/app_routes.dart';
 
@@ -16,13 +15,12 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
-      selectedIndex: currentIndex,
-      onDestinationSelected: onTap,
-      destinations: screens.map((screen) {
-        return NavigationDestination(
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      items: screens.map((screen) {
+        return BottomNavigationBarItem(
           icon: Icon(screen.icon),
-          selectedIcon: Icon(screen.activeIcon),
           label: screen.label,
         );
       }).toList(),

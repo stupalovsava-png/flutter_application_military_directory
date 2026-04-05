@@ -1,4 +1,6 @@
 class RouteNames {
-  static const String home = '/home';
+  static const String main = '/main';
+
   static const String drugs = '/drugs';
+  static const String chekLists = '/cheklists';
 }

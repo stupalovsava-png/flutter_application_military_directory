@@ -1,5 +1,7 @@
-// main_screen.dart (пример)
 import 'package:flutter/material.dart';
+import 'package:flutter_application_military_directory/core/theme.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_application_military_directory/core/router/route_names.dart';
 import 'package:flutter_application_military_directory/navigation/app_routes.dart';
 
 class MainScreen extends StatelessWidget {
@@ -7,7 +9,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allScreens = AppScreen.values; // или свой список для карточек
+    // Убираем Главную из списка карточек
+    final visibleScreens = [AppScreen.drugs, AppScreen.checklists];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Войсковой врач')),
@@ -19,26 +22,35 @@ class MainScreen extends StatelessWidget {
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
-          itemCount: allScreens.length,
+          itemCount: visibleScreens.length,
           itemBuilder: (context, index) {
-            final screen = allScreens[index];
+            final screen = visibleScreens[index];
 
             return Card(
-              elevation: 4,
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: InkWell(
+                borderRadius: BorderRadius.circular(16),
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Переход к: ${screen.label}')),
-                  );
+                  if (screen == AppScreen.drugs) {
+                    context.go(RouteNames.drugs);
+                  } else if (screen == AppScreen.checklists) {
+                    context.go(RouteNames.chekLists);
+                  }
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(screen.icon, size: 48),
-                    const SizedBox(height: 12),
+                    Icon(screen.icon, size: 56, color: primaryColor),
+                    const SizedBox(height: 16),
                     Text(
                       screen.label,
-                      style: const TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],

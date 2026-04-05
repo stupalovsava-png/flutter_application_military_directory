@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_application_military_directory/presentation/main_screen.dart';
 import 'package:flutter_application_military_directory/presentation/drugs/drug_screen.dart';
-import 'package:flutter_application_military_directory/presentation/chek_list/check_lists.dart';
+import 'package:flutter_application_military_directory/presentation/chek_list/check_lists_screen.dart';
 
 enum AppScreen {
   main,
