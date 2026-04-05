@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/presentation/widgets/bottom_navigation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_application_military_directory/navigation/app_routes.dart'; // или где у тебя AppScreen
+import 'package:flutter_application_military_directory/navigation/app_routes.dart';
 
 class AppShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

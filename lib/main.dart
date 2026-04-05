@@ -4,7 +4,7 @@ import 'package:flutter_application_military_directory/core/theme_provider.dart'
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Импортируем готовый роутер
-import 'package:flutter_application_military_directory/core/router/app_router.dart';
+import 'package:flutter_application_military_directory/navigation/router/app_router.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));

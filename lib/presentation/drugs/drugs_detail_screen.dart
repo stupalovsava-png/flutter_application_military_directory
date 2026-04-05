@@ -90,7 +90,7 @@ class DrugDetailScreen extends StatelessWidget {
 
               // Форма выпуска
               _buildSectionTitle('Форма выпуска'),
-              Text(drug.dosage, style: const TextStyle(fontSize: 16)),
+              Text(drug.form, style: const TextStyle(fontSize: 16)),
 
               const SizedBox(height: 24),
 
@@ -116,6 +116,7 @@ class DrugDetailScreen extends StatelessWidget {
                 title: 'Противопоказания',
                 content: drug.contraindications,
               ),
+              const SizedBox(height: 12),
               _buildSectionTitle('С осторожностью'),
               Text(
                 drug.caution,

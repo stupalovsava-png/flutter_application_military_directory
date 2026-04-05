@@ -7,50 +7,81 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appThmeState = ref.watch(appThemeStateNotifier);
+    final themeState = ref.watch(appThemeStateNotifier);
+    final themeNotifier = ref.read(appThemeStateNotifier);
+
     return Scaffold(
+      appBar: AppBar(title: const Text('Настройки')),
       body: SafeArea(
         child: Column(
           children: [
-            const Text('Выбор темы', style: TextStyle(fontSize: 22)),
-            SizedBox(height: 100),
+            const SizedBox(height: 40),
+            const Text(
+              'Выбор темы',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 60),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () => appThmeState.setDarkTheme(),
-                  child: SizedBox(
-                    height: 88,
-                    width: 88,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.black,
-                        border: Border.all(color: Colors.grey),
-                      ),
-                    ),
-                  ),
+                // Тёмная тема
+                _buildThemeOption(
+                  context: context,
+                  isSelected: themeState.isDarkModeEnabled,
+                  color: Colors.black,
+                  label: 'Тёмная',
+                  onTap: themeNotifier.setDarkTheme,
                 ),
-                const SizedBox(width: 80),
-                GestureDetector(
-                  onTap: () => appThmeState.setLightTheme(),
-                  child: SizedBox(
-                    height: 88,
-                    width: 88,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.white,
-
-                        border: Border.all(color: Colors.grey),
-                      ),
-                    ),
-                  ),
+                const SizedBox(width: 60),
+                // Светлая тема
+                _buildThemeOption(
+                  context: context,
+                  isSelected: !themeState.isDarkModeEnabled,
+                  color: Colors.white,
+                  label: 'Светлая',
+                  onTap: themeNotifier.setLightTheme,
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildThemeOption({
+    required BuildContext context,
+    required bool isSelected,
+    required Color color,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            height: 88,
+            width: 88,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color,
+              border: Border.all(
+                color: isSelected ? Colors.teal : Colors.grey,
+                width: isSelected ? 4 : 2,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
       ),
     );
   }

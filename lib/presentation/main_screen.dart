@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/core/theme.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_application_military_directory/core/router/route_names.dart';
+import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
 import 'package:flutter_application_military_directory/navigation/app_routes.dart';
 
 class MainScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class MainScreen extends StatelessWidget {
                   } else if (screen == AppScreen.checklists) {
                     context.go(RouteNames.chekLists);
                   } else if (screen == AppScreen.setting) {
-                    context.go(RouteNames.setting);
+                    context.go('/main/settings');
                   }
                 },
                 child: Column(

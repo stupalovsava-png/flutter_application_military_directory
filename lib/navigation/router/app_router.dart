@@ -1,7 +1,7 @@
 import 'package:flutter_application_military_directory/presentation/settings/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_application_military_directory/core/router/route_names.dart';
+import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
 import 'package:flutter_application_military_directory/presentation/app_shell.dart';
 import 'package:flutter_application_military_directory/presentation/main_screen.dart';
 import 'package:flutter_application_military_directory/presentation/drugs/drug_screen.dart';
@@ -22,6 +22,13 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: RouteNames.main,
               builder: (context, state) => const MainScreen(),
+              routes: [
+                //  вложенный маршрут
+                GoRoute(
+                  path: 'settings',
+                  builder: (context, state) => const SettingsScreen(),
+                ),
+              ],
             ),
           ],
         ),
@@ -43,10 +50,6 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
       ],
-    ),
-    GoRoute(
-      path: RouteNames.setting,
-      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );
