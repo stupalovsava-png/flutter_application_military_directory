@@ -19,7 +19,7 @@ class DrugCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: 120,
+          height: 140,
           child: Card(
             color: context.cardColor,
             elevation: 2,

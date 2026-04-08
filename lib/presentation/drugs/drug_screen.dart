@@ -68,6 +68,7 @@ class _DrugScreenState extends State<DrugScreen> {
                 ),
               ),
             ),
+            Text('Общее число препаратов ${drugList.length.toString()}'),
             Expanded(
               child: _filteredDrugs.isEmpty
                   ? const Center(
