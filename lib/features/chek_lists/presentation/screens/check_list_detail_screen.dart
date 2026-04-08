@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/data/chek_lists.dart/check_list_model.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/data/check_list_model.dart';
 
 class ActionsProgressScreen extends StatefulWidget {
   final CheckListModel check; // твой список действий

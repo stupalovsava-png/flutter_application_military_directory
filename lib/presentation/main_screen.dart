@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/core/theme.dart';
+import 'package:flutter_application_military_directory/core/theme/theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
 import 'package:flutter_application_military_directory/navigation/app_routes.dart';
@@ -14,6 +14,8 @@ class MainScreen extends StatelessWidget {
       AppScreen.drugs,
       AppScreen.checklists,
       AppScreen.setting,
+      AppScreen.theory,
+      AppScreen.equipment,
     ];
 
     return Scaffold(
@@ -43,7 +45,11 @@ class MainScreen extends StatelessWidget {
                   } else if (screen == AppScreen.checklists) {
                     context.go(RouteNames.chekLists);
                   } else if (screen == AppScreen.setting) {
-                    context.go('/main/settings');
+                    context.push('/main/settings');
+                  } else if (screen == AppScreen.theory) {
+                    context.go('/main/theory');
+                  } else if (screen == AppScreen.equipment) {
+                    context.go('/main/equipment');
                   }
                 },
                 child: Column(

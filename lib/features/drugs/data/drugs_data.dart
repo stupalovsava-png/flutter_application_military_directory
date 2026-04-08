@@ -1,4 +1,4 @@
-import 'package:flutter_application_military_directory/data/drugs/drug_model.dart';
+import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
 
 final List<DrugModel> drugList = [
   DrugModel(

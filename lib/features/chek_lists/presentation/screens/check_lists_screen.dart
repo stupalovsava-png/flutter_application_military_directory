@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/data/chek_lists.dart/check_list_model.dart';
-import 'package:flutter_application_military_directory/data/chek_lists.dart/chek_list_data.dart';
-import 'package:flutter_application_military_directory/presentation/widgets/check_lists_card.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/data/check_list_model.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/data/chek_list_data.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/presentation/widgets/check_lists_card.dart';
 
 class CheckLists extends StatefulWidget {
   const CheckLists({super.key});

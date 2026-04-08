@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/core/theme.dart';
-import 'package:flutter_application_military_directory/core/theme_provider.dart';
+import 'package:flutter_application_military_directory/core/theme/theme.dart';
+import 'package:flutter_application_military_directory/core/theme/theme_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Импортируем готовый роутер

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/data/drugs/drug_model.dart';
-import 'package:flutter_application_military_directory/data/drugs/drugs_data.dart';
-import 'package:flutter_application_military_directory/presentation/widgets/drug_card.dart';
+import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
+import 'package:flutter_application_military_directory/features/drugs/data/drugs_data.dart';
+import 'package:flutter_application_military_directory/features/drugs/presentations/widgets/drug_card.dart';
 
 class DrugScreen extends StatefulWidget {
   const DrugScreen({super.key});

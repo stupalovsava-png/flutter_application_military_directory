@@ -7,4 +7,5 @@ class RouteNames {
   static const String callculators = '/calculators';
   static const String literature = '/literature';
   static const String equipment = '/equipment';
+  static const String theory = '/theory';
 }

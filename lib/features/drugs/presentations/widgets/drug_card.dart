@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/core/extension/theme_extension.dart';
-import 'package:flutter_application_military_directory/data/chek_lists.dart/check_list_model.dart';
-import 'package:flutter_application_military_directory/presentation/chek_list/check_list_detail_screen.dart';
+import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
+import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 
-class CheckListsCard extends StatelessWidget {
-  final CheckListModel check;
+class DrugCard extends StatelessWidget {
+  final DrugModel drug;
 
-  const CheckListsCard({super.key, required this.check});
+  const DrugCard({super.key, required this.drug});
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => ActionsProgressScreen(check: check),
-          ),
+          MaterialPageRoute(builder: (context) => DrugDetailScreen(drug: drug)),
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: 110,
+          height: 140,
           child: Card(
             color: context.cardColor,
             elevation: 2,
@@ -36,27 +34,38 @@ class CheckListsCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          check.title,
+                          drug.name,
                           style: const TextStyle(
-                            fontSize: 17,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(height: 4),
                         Text(
-                          check.category,
+                          drug.latinName,
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
                           ),
                         ),
-                        if (check.actions.length < 5)
-                          Text(
-                            '${check.actions.length} пункта',
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.red.shade100,
+                          ),
+                          child: Text(
+                            drug.group,
                             style: const TextStyle(
                               fontSize: 14,
                               color: Color.fromARGB(255, 118, 14, 7),
                             ),
                           ),
+                        ),
                       ],
                     ),
                   ),
