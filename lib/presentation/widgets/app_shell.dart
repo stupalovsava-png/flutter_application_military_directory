@@ -18,7 +18,12 @@ class AppShell extends StatelessWidget {
           index,
           initialLocation: index == navigationShell.currentIndex,
         ),
-        screens: const [AppScreen.main, AppScreen.drugs, AppScreen.checklists],
+        screens: const [
+          AppScreen.main,
+          AppScreen.drugs,
+          AppScreen.checklists,
+          AppScreen.formula,
+        ],
       ),
     );
   }

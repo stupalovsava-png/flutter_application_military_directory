@@ -8,4 +8,6 @@ class RouteNames {
   static const String literature = '/literature';
   static const String equipment = '/equipment';
   static const String theory = '/theory';
+  static const String analysis = '/analysis';
+  static const String formula = '/formula';
 }

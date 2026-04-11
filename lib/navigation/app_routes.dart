@@ -1,5 +1,7 @@
 // app_routes.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_application_military_directory/features/anylysis/presentation/analysis_screen.dart';
+import 'package:flutter_application_military_directory/features/calculators/presentation/formulae_screen.dart';
 import 'package:flutter_application_military_directory/features/equipment/presentation/screens/equipment_screen.dart';
 
 import 'package:flutter_application_military_directory/presentation/main_screen.dart';
@@ -14,10 +16,14 @@ enum AppScreen {
   checklists,
   theory,
   equipment,
+  analysis,
+  formula,
   setting;
 
   // Возвращает соответствующий виджет экрана
   Widget get screen => switch (this) {
+    AppScreen.formula => FormulaeScreen(),
+    AppScreen.analysis => AnalysisScreen(),
     AppScreen.theory => const TheoryScreen(),
     AppScreen.main => const MainScreen(),
     AppScreen.drugs => const DrugScreen(),
@@ -28,6 +34,9 @@ enum AppScreen {
 
   // Название для отображения в BottomNavigationBar
   String get label => switch (this) {
+    AppScreen.analysis => 'Анализы',
+    AppScreen.formula => 'Медицинские рассчеты',
+
     AppScreen.theory => 'Теория',
     AppScreen.equipment => 'Оснащение',
 
@@ -39,6 +48,8 @@ enum AppScreen {
 
   // Иконка для BottomNavigationBar
   IconData get icon => switch (this) {
+    AppScreen.analysis => Icons.analytics,
+    AppScreen.formula => Icons.calculate,
     AppScreen.equipment => Icons.add_box,
     AppScreen.theory => Icons.book,
     AppScreen.main => Icons.home,
@@ -49,6 +60,8 @@ enum AppScreen {
 
   // Иконка активная (если хочешь отдельную)
   IconData get activeIcon => switch (this) {
+    AppScreen.formula => Icons.calculate,
+    AppScreen.analysis => Icons.analytics,
     AppScreen.theory => Icons.book,
     AppScreen.equipment => Icons.bolt,
 

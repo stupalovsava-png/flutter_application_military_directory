@@ -20,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
       onTap: onTap,
       items: screens.map((screen) {
         return BottomNavigationBarItem(
-          icon: Icon(screen.icon),
+          icon: Icon(screen.icon, color: Colors.green.shade800),
           label: screen.label,
         );
       }).toList(),

@@ -13,9 +13,11 @@ class MainScreen extends StatelessWidget {
     final visibleScreens = [
       AppScreen.drugs,
       AppScreen.checklists,
-      AppScreen.setting,
       AppScreen.theory,
-      AppScreen.equipment,
+      AppScreen.analysis,
+      // AppScreen.equipment,
+      AppScreen.formula,
+      AppScreen.setting,
     ];
 
     return Scaffold(
@@ -50,6 +52,10 @@ class MainScreen extends StatelessWidget {
                     context.go('/main/theory');
                   } else if (screen == AppScreen.equipment) {
                     context.go('/main/equipment');
+                  } else if (screen == AppScreen.analysis) {
+                    context.go('/main/analysis');
+                  } else if (screen == AppScreen.formula) {
+                    context.go('/main/formula');
                   }
                 },
                 child: Column(
