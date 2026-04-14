@@ -155,7 +155,6 @@ class _ScaleCalculatorScreenState extends State<ScaleCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(42, 107, 189, 0.9),
         centerTitle: true,
         title: Text(
           widget.sacale.name,

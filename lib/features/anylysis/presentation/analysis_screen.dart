@@ -76,6 +76,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       return AnalysisCard(
                         analis: analysisList[index],
                         key: ValueKey(analysis.id),
+                        controller: TextEditingController(),
                       );
                     },
                   ),

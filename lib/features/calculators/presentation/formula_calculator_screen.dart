@@ -128,7 +128,6 @@ class _FormulaCalculatorScreenState extends State<FormulaCalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(42, 107, 189, 1),
         centerTitle: true,
         title: Text(
           widget.formula.name,

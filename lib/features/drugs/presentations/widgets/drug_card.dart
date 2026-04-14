@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_military_directory/core/extension/theme_extension.dart';
 import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 
@@ -16,62 +15,17 @@ class DrugCard extends StatelessWidget {
           MaterialPageRoute(builder: (context) => DrugDetailScreen(drug: drug)),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 140,
-          child: Card(
-            color: context.cardColor,
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          drug.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          drug.latinName,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.red.shade100,
-                          ),
-                          child: Text(
-                            drug.group,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Color.fromARGB(255, 118, 14, 7),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+
+        child: ListTile(
+          title: Text(drug.name),
+
+          subtitle: Text(drug.group),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [const Icon(Icons.chevron_right)],
           ),
         ),
       ),

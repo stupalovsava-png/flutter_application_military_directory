@@ -5,6 +5,13 @@ final primaryColor = Colors.green.shade800;
 class AppTheme {
   // Светлая тема
   static final lightTheme = ThemeData(
+    appBarTheme: const AppBarTheme(
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+      // backgroundColor: Colors.white,   // можно задать здесь
+    ),
     scaffoldBackgroundColor: Colors.grey.shade200,
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.teal, // твой основной цвет
@@ -21,6 +28,13 @@ class AppTheme {
   );
 
   static final darkTheme = ThemeData(
+    appBarTheme: const AppBarTheme(
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+      // backgroundColor: Colors.white,   // можно задать здесь
+    ),
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.teal,
       brightness: Brightness.dark,

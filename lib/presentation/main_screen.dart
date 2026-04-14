@@ -19,7 +19,6 @@ class MainScreen extends StatelessWidget {
       AppScreen.formula,
       AppScreen.setting,
     ];
-
     return Scaffold(
       appBar: AppBar(title: const Text('Войсковой врач')),
       body: Padding(
@@ -55,7 +54,7 @@ class MainScreen extends StatelessWidget {
                   } else if (screen == AppScreen.analysis) {
                     context.go('/main/analysis');
                   } else if (screen == AppScreen.formula) {
-                    context.go('/main/formula');
+                    context.go(RouteNames.formula);
                   }
                 },
                 child: Column(
