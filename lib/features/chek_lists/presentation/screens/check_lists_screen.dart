@@ -65,6 +65,17 @@ class _CheckListsState extends State<CheckLists> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Text(
+                    'Найдено чек-листов : ${_filteredChek.length}',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: _filteredChek.isEmpty
                   ? const Center(

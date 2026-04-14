@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_military_directory/core/theme/theme.dart';
 import 'package:flutter_application_military_directory/features/calculators/data/sacales_data.dart';
 
 // Экран для расчета медицинских шкал
@@ -156,14 +157,7 @@ class _ScaleCalculatorScreenState extends State<ScaleCalculatorScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          widget.sacale.name,
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
+        title: Text(widget.sacale.name, style: TextStyle(fontSize: 22)),
 
         // Название шкалы в заголовке
         actions: [
@@ -208,7 +202,7 @@ class _ScaleCalculatorScreenState extends State<ScaleCalculatorScreen> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(42, 107, 189, 0.9),
+                    backgroundColor: primaryColor,
                     padding: EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

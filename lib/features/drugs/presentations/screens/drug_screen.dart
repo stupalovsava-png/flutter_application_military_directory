@@ -68,7 +68,17 @@ class _DrugScreenState extends State<DrugScreen> {
                 ),
               ),
             ),
-            Text('Общее число препаратов ${drugList.length.toString()}'),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Text(
+                    'Найдено препаратов : ${_filteredDrugs.length}',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: _filteredDrugs.isEmpty
                   ? const Center(

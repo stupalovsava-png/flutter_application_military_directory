@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_military_directory/core/theme/theme.dart';
 import 'package:flutter_application_military_directory/features/calculators/data/scales_data.dart';
 
 class MedicalScaleScreen extends StatefulWidget {
@@ -53,14 +54,7 @@ class _MedicalScaleScreenState extends State<MedicalScaleScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          widget.scale.name,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
+        title: Text(widget.scale.name, style: TextStyle(fontSize: 20)),
 
         // Название шкалы в заголовке
         actions: [
@@ -170,7 +164,7 @@ class _MedicalScaleScreenState extends State<MedicalScaleScreen> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromRGBO(42, 107, 189, 0.9),
+              backgroundColor: primaryColor,
               padding: EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),

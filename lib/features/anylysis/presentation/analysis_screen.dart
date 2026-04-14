@@ -40,7 +40,6 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Референсные значения анализов'),
           Padding(
             padding: EdgeInsetsGeometry.all(12),
             child: TextField(
@@ -58,6 +57,17 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Text(
+                  'Найдено анализов : ${_analysis.length}',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                ),
+              ],
             ),
           ),
 

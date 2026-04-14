@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
     final visibleScreens = [
       AppScreen.drugs,
       AppScreen.checklists,
-      AppScreen.theory,
+      // AppScreen.theory,
       AppScreen.analysis,
       // AppScreen.equipment,
       AppScreen.formula,
