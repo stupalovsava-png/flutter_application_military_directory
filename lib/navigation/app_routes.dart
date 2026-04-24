@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/features/anylysis/presentation/analysis_screen.dart';
 import 'package:flutter_application_military_directory/features/calculators/presentation/formulae_screen.dart';
 import 'package:flutter_application_military_directory/features/equipment/presentation/screens/equipment_screen.dart';
+import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
 
 import 'package:flutter_application_military_directory/presentation/main_screen.dart';
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drug_screen.dart';
@@ -18,6 +19,7 @@ enum AppScreen {
   equipment,
   analysis,
   formula,
+  manipulation,
   setting;
 
   // Возвращает соответствующий виджет экрана
@@ -30,6 +32,7 @@ enum AppScreen {
     AppScreen.checklists => const CheckLists(),
     AppScreen.setting => const SettingsScreen(),
     AppScreen.equipment => const EquipmentScreen(),
+    AppScreen.manipulation => const ManipulationScreen(),
   };
 
   // Название для отображения в BottomNavigationBar
@@ -39,6 +42,7 @@ enum AppScreen {
 
     AppScreen.theory => 'Теория',
     AppScreen.equipment => 'Оснащение',
+    AppScreen.manipulation => 'Манипуляции',
 
     AppScreen.main => 'Главная',
     AppScreen.drugs => 'Препараты',
@@ -56,6 +60,7 @@ enum AppScreen {
     AppScreen.drugs => Icons.medication,
     AppScreen.checklists => Icons.checklist,
     AppScreen.setting => Icons.settings,
+    AppScreen.manipulation => Icons.accessibility_new,
   };
 
   // Иконка активная (если хочешь отдельную)
@@ -64,6 +69,7 @@ enum AppScreen {
     AppScreen.analysis => Icons.analytics,
     AppScreen.theory => Icons.book,
     AppScreen.equipment => Icons.bolt,
+    AppScreen.manipulation => Icons.accessibility_new,
 
     AppScreen.main => Icons.home_filled,
     AppScreen.drugs => Icons.medication_liquid,

@@ -1578,3 +1578,693 @@ class Dehidrotation extends MedicalScale {
   @override
   String get name => 'Оценка степени эксикоза';
 }
+// ===== ДОБАВИТЬ В scales_data.dart =====
+
+// Критерии SIRS
+class SirsScale implements MedicalScale {
+  @override
+  String get name => 'Критерии SIRS';
+  @override
+  String get description => 'Синдром системного воспалительного ответа';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Температура тела': [
+      ScaleItem(description: '>38°C или <36°C', score: 1),
+      ScaleItem(description: '36-38°C (норма)', score: 0),
+    ],
+    'ЧСС': [
+      ScaleItem(description: '>90 уд/мин', score: 1),
+      ScaleItem(description: '≤90 уд/мин', score: 0),
+    ],
+    'ЧДД': [
+      ScaleItem(description: '>20/мин или PaCO2 <32 мм рт.ст.', score: 1),
+      ScaleItem(description: 'Норма', score: 0),
+    ],
+    'Лейкоциты': [
+      ScaleItem(
+        description: '>12×10⁹/л или <4×10⁹/л или >10% незрелых форм',
+        score: 1,
+      ),
+      ScaleItem(description: '4-12×10⁹/л (норма)', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      < 2 => 'SIRS отсутствует',
+      2 => 'SIRS (2 критерия)\n•Наблюдение, поиск источника инфекции',
+      3 =>
+        'SIRS (3 критерия)\n•Высокая вероятность сепсиса\n•Необходимо обследование',
+      _ =>
+        'SIRS (4 критерия)\n•Выраженный системный воспалительный ответ\n•Срочное обследование и лечение',
+    };
+  }
+}
+
+// Шкала NEWS 2
+class News2Scale implements MedicalScale {
+  @override
+  String get name => 'Шкала NEWS 2';
+  @override
+  String get description =>
+      'Национальная шкала раннего предупреждения (National Early Warning Score 2)';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'ЧДД (дых/мин)': [
+      ScaleItem(description: '≤8', score: 3),
+      ScaleItem(description: '9-11', score: 1),
+      ScaleItem(description: '12-20', score: 0),
+      ScaleItem(description: '21-24', score: 2),
+      ScaleItem(description: '≥25', score: 3),
+    ],
+    'SpO2 (шкала 1, без кислорода)': [
+      ScaleItem(description: '≤91%', score: 3),
+      ScaleItem(description: '92-93%', score: 2),
+      ScaleItem(description: '94-95%', score: 1),
+      ScaleItem(description: '≥96%', score: 0),
+    ],
+    'Дополнительный кислород': [
+      ScaleItem(description: 'Да', score: 2),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Систолическое АД (мм рт.ст.)': [
+      ScaleItem(description: '≤90', score: 3),
+      ScaleItem(description: '91-100', score: 2),
+      ScaleItem(description: '101-110', score: 1),
+      ScaleItem(description: '111-219', score: 0),
+      ScaleItem(description: '≥220', score: 3),
+    ],
+    'ЧСС (уд/мин)': [
+      ScaleItem(description: '≤40', score: 3),
+      ScaleItem(description: '41-50', score: 1),
+      ScaleItem(description: '51-90', score: 0),
+      ScaleItem(description: '91-110', score: 1),
+      ScaleItem(description: '111-130', score: 2),
+      ScaleItem(description: '≥131', score: 3),
+    ],
+    'Уровень сознания (ACVPU)': [
+      ScaleItem(description: 'Alert (в сознании)', score: 0),
+      ScaleItem(description: 'Confusion (спутанность)', score: 3),
+      ScaleItem(description: 'Voice (реакция на голос)', score: 3),
+      ScaleItem(description: 'Pain (реакция на боль)', score: 3),
+      ScaleItem(description: 'Unresponsive (нет реакции)', score: 3),
+    ],
+    'Температура (°C)': [
+      ScaleItem(description: '≤35.0', score: 3),
+      ScaleItem(description: '35.1-36.0', score: 1),
+      ScaleItem(description: '36.1-38.0', score: 0),
+      ScaleItem(description: '38.1-39.0', score: 1),
+      ScaleItem(description: '≥39.1', score: 2),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      0 => '•Минимальный риск\n•Мониторинг каждые 12 часов',
+      <= 4 => '•Низкий риск\n•Мониторинг каждые 4-6 часов',
+      5 || 6 => '•Средний риск\n•Срочная оценка врачом\n•Мониторинг каждый час',
+      _ =>
+        '•Высокий риск\n•Немедленная оценка реанимационной бригадой\n•Перевод в ОРИТ',
+    };
+  }
+}
+
+// Шкала ASA
+class AsaScale implements MedicalScale {
+  @override
+  String get name => 'Шкала ASA';
+  @override
+  String get description =>
+      'Оценка физического статуса пациента перед анестезией (American Society of Anesthesiologists)';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Физический статус': [
+      ScaleItem(description: 'ASA I — Здоровый пациент', score: 1),
+      ScaleItem(description: 'ASA II — Лёгкое системное заболевание', score: 2),
+      ScaleItem(
+        description: 'ASA III — Тяжёлое системное заболевание',
+        score: 3,
+      ),
+      ScaleItem(
+        description: 'ASA IV — Угрожающее жизни системное заболевание',
+        score: 4,
+      ),
+      ScaleItem(
+        description: 'ASA V — Умирающий пациент (не переживёт без операции)',
+        score: 5,
+      ),
+      ScaleItem(description: 'ASA VI — Смерть мозга, донор органов', score: 6),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      1 => 'ASA I\n•Летальность <0.1%\n•Плановая операция возможна',
+      2 =>
+        'ASA II\n•Летальность 0.2%\n•Плановая операция возможна с учётом сопутствующей патологии',
+      3 =>
+        'ASA III\n•Летальность 1.8%\n•Предоперационная подготовка обязательна',
+      4 =>
+        'ASA IV\n•Летальность 7.8%\n•Операция только по жизненным показаниям',
+      5 =>
+        'ASA V\n•Летальность 9.4%\n•Экстренная операция, прогноз сомнительный',
+      _ => 'ASA VI\n•Констатация смерти мозга',
+    };
+  }
+}
+
+// Шкала CPIS (пневмония у ИВЛ-пациентов)
+class CpisScale implements MedicalScale {
+  @override
+  String get name => 'Шкала CPIS';
+  @override
+  String get description =>
+      'Clinical Pulmonary Infection Score — диагностика вентилятор-ассоциированной пневмонии';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Температура (°C)': [
+      ScaleItem(description: '36.5-38.4', score: 0),
+      ScaleItem(description: '38.5-38.9', score: 1),
+      ScaleItem(description: '≥39.0 или ≤36.0', score: 2),
+    ],
+    'Лейкоциты (×10⁹/л)': [
+      ScaleItem(description: '4-11', score: 0),
+      ScaleItem(description: '<4 или >11', score: 1),
+      ScaleItem(description: '<4 или >11 + палочкоядерные >50%', score: 2),
+    ],
+    'Трахеальный секрет': [
+      ScaleItem(description: 'Отсутствует', score: 0),
+      ScaleItem(description: 'Необильный негнойный', score: 1),
+      ScaleItem(description: 'Обильный гнойный', score: 2),
+    ],
+    'PaO2/FiO2 (мм рт.ст.)': [
+      ScaleItem(description: '>240 или ARDS', score: 0),
+      ScaleItem(description: '≤240 без ARDS', score: 2),
+    ],
+    'Рентген грудной клетки': [
+      ScaleItem(description: 'Нет инфильтрата', score: 0),
+      ScaleItem(description: 'Диффузный инфильтрат', score: 1),
+      ScaleItem(description: 'Локализованный инфильтрат', score: 2),
+    ],
+    'Культура трахеального аспирата': [
+      ScaleItem(description: 'Нет роста', score: 0),
+      ScaleItem(description: 'Умеренный/значительный рост', score: 1),
+      ScaleItem(
+        description: 'Тот же микроорганизм на окраске по Граму',
+        score: 2,
+      ),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      < 6 => '•ВАП маловероятна\n•Продолжить наблюдение',
+      _ =>
+        '•ВАП вероятна (≥6 баллов)\n•Рекомендована антибактериальная терапия',
+    };
+  }
+}
+
+// Шкала CURB-65
+class Curb65Scale implements MedicalScale {
+  @override
+  String get name => 'Шкала CURB-65';
+  @override
+  String get description => 'Оценка тяжести внебольничной пневмонии';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    '(C) Нарушение сознания': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(U) Мочевина >7 ммоль/л': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(R) ЧДД ≥30/мин': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(B) АД: сист.<90 или диаст.≤60 мм рт.ст.': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(65) Возраст ≥65 лет': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      0 ||
+      1 => '•Группа I — Низкий риск\n•Летальность <3%\n•Амбулаторное лечение',
+      2 =>
+        '•Группа II — Средний риск\n•Летальность 9%\n•Краткосрочная госпитализация',
+      _ =>
+        '•Группа III — Высокий риск\n•Летальность 15-40%\n•Госпитализация, рассмотреть ОРИТ',
+    };
+  }
+}
+
+// Шкала ABCD2 (риск инсульта после ТИА)
+class Abcd2Scale implements MedicalScale {
+  @override
+  String get name => 'Шкала ABCD2';
+  @override
+  String get description =>
+      'Оценка риска инсульта после транзиторной ишемической атаки';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    '(A) Возраст': [
+      ScaleItem(description: '≥60 лет', score: 1),
+      ScaleItem(description: '<60 лет', score: 0),
+    ],
+    '(B) Артериальное давление': [
+      ScaleItem(description: 'Сист. ≥140 или диаст. ≥90 мм рт.ст.', score: 1),
+      ScaleItem(description: 'Норма', score: 0),
+    ],
+    '(C) Клинические проявления ТИА': [
+      ScaleItem(description: 'Односторонняя слабость', score: 2),
+      ScaleItem(description: 'Нарушение речи без слабости', score: 1),
+      ScaleItem(description: 'Другие симптомы', score: 0),
+    ],
+    '(D) Продолжительность симптомов': [
+      ScaleItem(description: '≥60 минут', score: 2),
+      ScaleItem(description: '10-59 минут', score: 1),
+      ScaleItem(description: '<10 минут', score: 0),
+    ],
+    '(D) Сахарный диабет': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      <= 3 =>
+        '•Низкий риск инсульта\n•2-дневный риск: 1%\n•Плановое обследование',
+      <= 5 =>
+        '•Умеренный риск инсульта\n•2-дневный риск: 4%\n•Госпитализация рекомендована',
+      _ =>
+        '•Высокий риск инсульта\n•2-дневный риск: 8%\n•Экстренная госпитализация',
+    };
+  }
+}
+
+// Шкала ABCD3-I
+class Abcd3IScale implements MedicalScale {
+  @override
+  String get name => 'Шкала ABCD3-I';
+  @override
+  String get description =>
+      'Расширенная оценка риска инсульта после ТИА с учётом нейровизуализации';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    '(A) Возраст ≥60 лет': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(B) АД ≥140/90 мм рт.ст.': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(C) Клинические проявления': [
+      ScaleItem(description: 'Односторонняя слабость', score: 2),
+      ScaleItem(description: 'Нарушение речи без слабости', score: 1),
+      ScaleItem(description: 'Другие симптомы', score: 0),
+    ],
+    '(D1) Продолжительность': [
+      ScaleItem(description: '≥60 минут', score: 2),
+      ScaleItem(description: '10-59 минут', score: 1),
+      ScaleItem(description: '<10 минут', score: 0),
+    ],
+    '(D2) Сахарный диабет': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(D3) Двойная ТИА (≤7 дней)': [
+      ScaleItem(description: 'Да', score: 2),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    '(I) МРТ DWI: острый инфаркт': [
+      ScaleItem(description: 'Да', score: 2),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      <= 3 => '•Низкий риск\n•2-дневный риск инсульта: <1%',
+      <= 7 => '•Умеренный риск\n•2-дневный риск инсульта: ~3%\n•Госпитализация',
+      _ =>
+        '•Высокий риск\n•2-дневный риск инсульта: >6%\n•Экстренная госпитализация',
+    };
+  }
+}
+
+// Шкала RASS (возбуждение-седация Ричмонда)
+class RassScale implements MedicalScale {
+  @override
+  String get name => 'Шкала RASS';
+  @override
+  String get description =>
+      'Richmond Agitation-Sedation Scale — оценка уровня седации и возбуждения';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Уровень сознания': [
+      ScaleItem(description: '+4 Агрессивный (агрессия, опасность)', score: 4),
+      ScaleItem(
+        description: '+3 Очень возбуждённый (тянет трубки, катетеры)',
+        score: 3,
+      ),
+      ScaleItem(
+        description: '+2 Возбуждённый (частые нецелевые движения)',
+        score: 2,
+      ),
+      ScaleItem(
+        description: '+1 Беспокойный (тревожен, но движения нецелевые)',
+        score: 1,
+      ),
+      ScaleItem(description: '0 Бодрствующий и спокойный', score: 0),
+      ScaleItem(
+        description: '-1 Сонливый (не полностью бодрствует, >10 сек)',
+        score: -1,
+      ),
+      ScaleItem(description: '-2 Лёгкая седация (<10 сек контакт)', score: -2),
+      ScaleItem(
+        description: '-3 Умеренная седация (движение без контакта)',
+        score: -3,
+      ),
+      ScaleItem(
+        description: '-4 Глубокая седация (нет реакции на голос)',
+        score: -4,
+      ),
+      ScaleItem(
+        description: '-5 Без сознания (нет реакции ни на что)',
+        score: -5,
+      ),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      >= 2 => '•Возбуждение ($totalScore)\n•Коррекция седации/анальгезии',
+      1 => '•Беспокойство\n•Наблюдение, возможна коррекция',
+      0 => '•Целевой уровень для большинства пациентов',
+      -1 ||
+      -2 => '•Лёгкая/умеренная седация\n•Целевой уровень при плановой ИВЛ',
+      -3 => '•Глубокая седация\n•Допустима при специальных показаниях',
+      _ => '•Чрезмерная седация ($totalScore)\n•Снизить дозу седативных',
+    };
+  }
+}
+
+// Шкала LIS (повреждение лёгких)
+class LisScale implements MedicalScale {
+  @override
+  String get name => 'Шкала LIS';
+  @override
+  String get description =>
+      'Lung Injury Score — оценка степени повреждения лёгких (Murray)';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Рентгенологические изменения': [
+      ScaleItem(description: 'Нет инфильтратов', score: 0),
+      ScaleItem(description: 'Инфильтрат в 1 квадранте', score: 1),
+      ScaleItem(description: 'Инфильтрат в 2 квадрантах', score: 2),
+      ScaleItem(description: 'Инфильтрат в 3 квадрантах', score: 3),
+      ScaleItem(description: 'Инфильтрат в 4 квадрантах', score: 4),
+    ],
+    'PaO2/FiO2': [
+      ScaleItem(description: '≥300', score: 0),
+      ScaleItem(description: '225-299', score: 1),
+      ScaleItem(description: '175-224', score: 2),
+      ScaleItem(description: '100-174', score: 3),
+      ScaleItem(description: '<100', score: 4),
+    ],
+    'ПДКВ (см вод.ст.)': [
+      ScaleItem(description: '≤5', score: 0),
+      ScaleItem(description: '6-8', score: 1),
+      ScaleItem(description: '9-11', score: 2),
+      ScaleItem(description: '12-14', score: 3),
+      ScaleItem(description: '≥15', score: 4),
+    ],
+    'Комплайнс (мл/см вод.ст.)': [
+      ScaleItem(description: '≥80', score: 0),
+      ScaleItem(description: '60-79', score: 1),
+      ScaleItem(description: '40-59', score: 2),
+      ScaleItem(description: '20-39', score: 3),
+      ScaleItem(description: '≤19', score: 4),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    // LIS = сумма / количество компонентов
+    final lis = totalScore / 4;
+    if (lis == 0) return '•Нет повреждения лёгких';
+    if (lis <= 2.5)
+      return '•Умеренное повреждение лёгких (LIS ${lis.toStringAsFixed(2)})\n•Наблюдение';
+    return '•Тяжёлое повреждение лёгких / ARDS (LIS ${lis.toStringAsFixed(2)})\n•ИВЛ, ОРИТ';
+  }
+}
+
+// Шкала Padua (риск ТЭЛА у госпитальных пациентов)
+class PaduaScale implements MedicalScale {
+  @override
+  String get name => 'Шкала Padua';
+  @override
+  String get description =>
+      'Оценка риска венозной тромбоэмболии у госпитализированных пациентов';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Активное онкологическое заболевание': [
+      ScaleItem(description: 'Да', score: 3),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'ВТЭ в анамнезе': [
+      ScaleItem(description: 'Да', score: 3),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Иммобилизация ≥3 дней': [
+      ScaleItem(description: 'Да', score: 3),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Тромбофилия': [
+      ScaleItem(description: 'Да', score: 3),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Травма/операция ≤1 месяца': [
+      ScaleItem(description: 'Да', score: 2),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Возраст ≥70 лет': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Сердечная/дыхательная недостаточность': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Острый инфаркт или инсульт': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Ожирение (ИМТ ≥30)': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+    'Гормональная терапия': [
+      ScaleItem(description: 'Да', score: 1),
+      ScaleItem(description: 'Нет', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      < 4 =>
+        '•Низкий риск ВТЭ\n•Ранняя мобилизация\n•Медикаментозная профилактика не показана',
+      _ =>
+        '•Высокий риск ВТЭ (≥4 балла)\n•Антикоагулянтная профилактика показана\n•НМГ или НФГ',
+    };
+  }
+}
+
+// Шкала MELD
+class MeldScale implements MedicalScale {
+  @override
+  String get name => 'Шкала MELD';
+  @override
+  String get description =>
+      'Model for End-Stage Liver Disease — оценка тяжести хронических заболеваний печени';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Креатинин сыворотки': [
+      ScaleItem(description: '<1.0 мг/дл', score: 0),
+      ScaleItem(description: '1.0-1.9 мг/дл', score: 1),
+      ScaleItem(description: '2.0-3.4 мг/дл', score: 2),
+      ScaleItem(description: '≥3.5 мг/дл или диализ', score: 3),
+    ],
+    'Билирубин сыворотки': [
+      ScaleItem(description: '<1.0 мг/дл', score: 0),
+      ScaleItem(description: '1.0-1.9 мг/дл', score: 1),
+      ScaleItem(description: '2.0-5.9 мг/дл', score: 2),
+      ScaleItem(description: '≥6.0 мг/дл', score: 3),
+    ],
+    'МНО': [
+      ScaleItem(description: '<1.5', score: 0),
+      ScaleItem(description: '1.5-1.9', score: 1),
+      ScaleItem(description: '2.0-2.4', score: 2),
+      ScaleItem(description: '≥2.5', score: 3),
+    ],
+    'Этиология цирроза': [
+      ScaleItem(description: 'Алкогольный или холестатический', score: 0),
+      ScaleItem(description: 'Другой', score: 1),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      <= 9 =>
+        '•MELD ≤9\n•3-месячная летальность: <2%\n•Список ожидания: низкий приоритет',
+      <= 19 =>
+        '•MELD 10-19\n•3-месячная летальность: 6%\n•Наблюдение гепатолога',
+      <= 29 =>
+        '•MELD 20-29\n•3-месячная летальность: 20%\n•Активная подготовка к трансплантации',
+      <= 39 =>
+        '•MELD 30-39\n•3-месячная летальность: 53%\n•Приоритетный кандидат на трансплантацию',
+      _ =>
+        '•MELD ≥40\n•3-месячная летальность: 71%\n•Экстренная трансплантация',
+    };
+  }
+}
+
+// ДВС-синдром overt (явный)
+class DicOvertScale implements MedicalScale {
+  @override
+  String get name => 'Шкала ДВС (overt)';
+  @override
+  String get description => 'ISTH — диагностика явного (overt) ДВС-синдрома';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Тромбоциты (×10⁹/л)': [
+      ScaleItem(description: '>100', score: 0),
+      ScaleItem(description: '50-100', score: 1),
+      ScaleItem(description: '<50', score: 2),
+    ],
+    'Д-димер / продукты деградации фибрина': [
+      ScaleItem(description: 'Нет повышения', score: 0),
+      ScaleItem(description: 'Умеренное повышение (2-5 норм)', score: 2),
+      ScaleItem(description: 'Выраженное повышение (>5 норм)', score: 3),
+    ],
+    'Протромбиновое время (удлинение)': [
+      ScaleItem(description: '<3 сек', score: 0),
+      ScaleItem(description: '3-6 сек', score: 1),
+      ScaleItem(description: '>6 сек', score: 2),
+    ],
+    'Фибриноген': [
+      ScaleItem(description: '>1.0 г/л', score: 0),
+      ScaleItem(description: '≤1.0 г/л', score: 1),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      >= 5 => '•Явный (overt) ДВС-синдром\n•Начать лечение ДВС',
+      _ =>
+        '•Явный ДВС маловероятен (<5 баллов)\n•Повторить оценку через 1-2 дня',
+    };
+  }
+}
+
+// ДВС-синдром non-overt (неявный)
+class DicNonOvertScale implements MedicalScale {
+  @override
+  String get name => 'Шкала ДВС (non-overt)';
+  @override
+  String get description =>
+      'ISTH — диагностика неявного (non-overt) ДВС-синдрома';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'Тромбоциты (×10⁹/л)': [
+      ScaleItem(description: '>150 (норма)', score: -1),
+      ScaleItem(description: '100-150 (снижение)', score: 1),
+      ScaleItem(description: '<100 (выраженное снижение)', score: 2),
+    ],
+    'ПТ (% от нормы)': [
+      ScaleItem(description: '>70% (норма)', score: -1),
+      ScaleItem(description: '40-70%', score: 1),
+      ScaleItem(description: '<40%', score: 2),
+    ],
+    'Д-димер': [
+      ScaleItem(description: 'Норма', score: -1),
+      ScaleItem(description: 'Повышен', score: 1),
+    ],
+    'Антитромбин III': [
+      ScaleItem(description: '≥80% (норма)', score: -1),
+      ScaleItem(description: '<80% (снижен)', score: 1),
+    ],
+    'Протеин С': [
+      ScaleItem(description: '≥70% (норма)', score: -1),
+      ScaleItem(description: '<70% (снижен)', score: 1),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      >= 5 => '•Высокая вероятность неявного ДВС\n•Профилактика, мониторинг',
+      >= 0 => '•Возможный неявный ДВС\n•Повторная оценка через 24 ч',
+      _ => '•ДВС маловероятен\n•Наблюдение',
+    };
+  }
+}
+
+// Шкала RTS (травма)
+class RtsScale implements MedicalScale {
+  @override
+  String get name => 'Шкала RTS';
+  @override
+  String get description => 'Revised Trauma Score — оценка тяжести травмы';
+  @override
+  Map<String, List<ScaleItem>> get components => {
+    'ШКГ (Глазго)': [
+      ScaleItem(description: '13-15', score: 4),
+      ScaleItem(description: '9-12', score: 3),
+      ScaleItem(description: '6-8', score: 2),
+      ScaleItem(description: '4-5', score: 1),
+      ScaleItem(description: '3', score: 0),
+    ],
+    'Систолическое АД (мм рт.ст.)': [
+      ScaleItem(description: '>89', score: 4),
+      ScaleItem(description: '76-89', score: 3),
+      ScaleItem(description: '50-75', score: 2),
+      ScaleItem(description: '1-49', score: 1),
+      ScaleItem(description: '0', score: 0),
+    ],
+    'ЧДД (дых/мин)': [
+      ScaleItem(description: '10-29', score: 4),
+      ScaleItem(description: '>29', score: 3),
+      ScaleItem(description: '6-9', score: 2),
+      ScaleItem(description: '1-5', score: 1),
+      ScaleItem(description: '0', score: 0),
+    ],
+  };
+  @override
+  String interpretationResult(num totalScore) {
+    return switch (totalScore) {
+      12 => '•RTS 12 — Минимальные повреждения\n•Выживаемость >99%',
+      11 => '•RTS 11 — Лёгкие повреждения\n•Выживаемость ~99%',
+      10 => '•RTS 10 — Умеренные повреждения\n•Выживаемость ~98%',
+      9 => '•RTS 9\n•Выживаемость ~97%',
+      8 => '•RTS 8\n•Выживаемость ~90%',
+      7 => '•RTS 7\n•Выживаемость ~81%',
+      6 => '•RTS 6\n•Выживаемость ~67%',
+      5 => '•RTS 5\n•Выживаемость ~63%',
+      4 => '•RTS 4\n•Выживаемость ~33%',
+      3 => '•RTS 3\n•Выживаемость ~33%',
+      2 => '•RTS 2\n•Выживаемость ~28%',
+      1 => '•RTS 1\n•Выживаемость ~25%',
+      _ => '•RTS 0 — Критическое состояние\n•Выживаемость <5%',
+    };
+  }
+}

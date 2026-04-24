@@ -1,3 +1,4 @@
+import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
@@ -28,7 +29,11 @@ final GoRouter appRouter = GoRouter(
               path: RouteNames.main,
               builder: (context, state) => const MainScreen(),
               routes: [
-                //  вложенный маршрут
+                //  вложенный маршруты
+                GoRoute(
+                  path: 'manipulation',
+                  builder: (context, state) => const ManipulationScreen(),
+                ),
                 GoRoute(
                   path: 'settings',
                   builder: (context, state) => const SettingsScreen(),

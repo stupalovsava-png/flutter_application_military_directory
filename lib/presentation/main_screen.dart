@@ -17,6 +17,8 @@ class MainScreen extends StatelessWidget {
       AppScreen.analysis,
       // AppScreen.equipment,
       AppScreen.formula,
+      AppScreen.manipulation,
+
       AppScreen.setting,
     ];
     return Scaffold(
@@ -49,6 +51,8 @@ class MainScreen extends StatelessWidget {
                     context.push('/main/settings');
                   } else if (screen == AppScreen.theory) {
                     context.go('/main/theory');
+                  } else if (screen == AppScreen.manipulation) {
+                    context.go('/main/manipulation');
                   } else if (screen == AppScreen.equipment) {
                     context.go('/main/equipment');
                   } else if (screen == AppScreen.analysis) {

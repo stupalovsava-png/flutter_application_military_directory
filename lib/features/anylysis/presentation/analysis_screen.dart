@@ -13,24 +13,55 @@ class AnalysisScreen extends StatefulWidget {
 class _AnalysisScreenState extends State<AnalysisScreen> {
   final controller = TextEditingController();
   List<AnalysisModel> _analysis = [];
+  final Set<AnalysisCategory> _selectedCategories = {};
+
+  static const Map<AnalysisCategory, String> _categoryLabels = {
+    AnalysisCategory.urine: 'Моча',
+    AnalysisCategory.biochemicalBlood: 'Биохимия крови',
+    AnalysisCategory.bloodGas: 'Газы крови',
+    AnalysisCategory.hormones: 'Гормоны',
+    AnalysisCategory.immunology: 'Иммунология',
+    AnalysisCategory.clinicalBlood: 'Клин. кровь',
+    AnalysisCategory.coagulogram: 'Коагулограмма',
+    AnalysisCategory.coprogram: 'Копрограмма',
+  };
 
   @override
   void initState() {
     super.initState();
-    _analysis = List.from(analysisList);
-    controller.addListener(_filterAnalysis);
+    _analysis = List.from(analysisList)
+      ..sort((a, b) => a.title.compareTo(b.title));
+    controller.addListener(_filter);
   }
 
-  void _filterAnalysis() {
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void _filter() {
     final query = controller.text.trim().toLowerCase();
     setState(() {
-      if (query.isEmpty) {
-        _analysis = List.from(analysisList);
+      _analysis = analysisList.where((a) {
+        final matchesQuery =
+            query.isEmpty || a.title.toLowerCase().contains(query);
+        final matchesCategory =
+            _selectedCategories.isEmpty ||
+            _selectedCategories.contains(a.category);
+        return matchesQuery && matchesCategory;
+      }).toList()..sort((a, b) => a.title.compareTo(b.title));
+    });
+  }
+
+  void _toggleCategory(AnalysisCategory category) {
+    setState(() {
+      if (_selectedCategories.contains(category)) {
+        _selectedCategories.remove(category);
       } else {
-        _analysis = analysisList.where((analysis) {
-          return analysis.title.toLowerCase().contains(query);
-        }).toList();
+        _selectedCategories.add(category);
       }
+      _filter();
     });
   }
 
@@ -38,10 +69,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsetsGeometry.all(12),
+            padding: const EdgeInsets.all(12),
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
@@ -49,7 +79,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 focusColor: Colors.grey,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 hintText: 'Поиск по названию',
                 prefixIcon: const Icon(Icons.search),
@@ -59,12 +89,39 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
               ),
             ),
           ),
+
+          // Чекбоксы категорий
+          SizedBox(
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              children: _categoryLabels.entries.map((entry) {
+                final isSelected = _selectedCategories.contains(entry.key);
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(entry.value),
+                    selected: isSelected,
+                    onSelected: (_) => _toggleCategory(entry.key),
+                    selectedColor: Colors.blue.withOpacity(0.2),
+                    checkmarkColor: Colors.blue,
+                    labelStyle: TextStyle(
+                      fontSize: 12,
+                      color: isSelected ? Colors.blue : Colors.grey[700],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
                 Text(
-                  'Найдено анализов : ${_analysis.length}',
+                  'Найдено анализов: ${_analysis.length}',
                   style: TextStyle(color: Colors.grey[600], fontSize: 14),
                 ),
               ],
@@ -82,9 +139,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 : ListView.builder(
                     itemCount: _analysis.length,
                     itemBuilder: (context, index) {
-                      final analysis = analysisList[index];
+                      final analysis = _analysis[index]; // исправлен баг
                       return AnalysisCard(
-                        analis: analysisList[index],
+                        analis: analysis,
                         key: ValueKey(analysis.id),
                         controller: TextEditingController(),
                       );

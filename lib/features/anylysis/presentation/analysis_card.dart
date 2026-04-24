@@ -22,8 +22,7 @@ class _AnalysisCardState extends State<AnalysisCard> {
   @override
   void initState() {
     super.initState();
-    selectedUnit =
-        widget.analis.standartUnit.name; // начинаем со стандартной единицы
+    selectedUnit = widget.analis.standartUnit.name;
   }
 
   void _calculate() {
@@ -40,7 +39,6 @@ class _AnalysisCardState extends State<AnalysisCard> {
       return;
     }
 
-    // Находим выбранную единицу измерения
     final currentUnit = widget.analis.units.firstWhere(
       (unit) => unit.name == selectedUnit,
       orElse: () => widget.analis.standartUnit,
@@ -92,26 +90,36 @@ class _AnalysisCardState extends State<AnalysisCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    // Поле для ввода значения
-                    Expanded(
-                      flex: 2,
-                      child: TextField(
-                        controller: widget.controller,
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
+                // РЕШЕНИЕ: Ограничиваем Row с помощью Expanded или SizedBox
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Поле для ввода значения с фиксированной шириной
+                        SizedBox(
+                          width: 120, // уменьшил ширину для мобильных устройств
+                          child: TextField(
+                            controller: widget.controller,
+                            keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Значение',
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 12,
+                              ),
+                            ),
+                          ),
                         ),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Значение',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    // Выбор единицы
-                    Expanded(flex: 1, child: unitSection(widget.analis)),
-                  ],
+                        const SizedBox(width: 12),
+                        // Dropdown оборачиваем в Expanded
+                        Expanded(child: unitSection(widget.analis)),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
                 Center(
@@ -149,19 +157,20 @@ class _AnalysisCardState extends State<AnalysisCard> {
   Widget unitSection(AnalysisModel analis) {
     return DropdownButtonFormField<String>(
       value: selectedUnit,
-      isExpanded: true,
+      isExpanded: true, // Работает благодаря Expanded родителю
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       ),
-      items: analis.units
-          .map(
-            (UnitModel unit) => DropdownMenuItem<String>(
-              value: unit.name,
-              child: Text(unit.name),
-            ),
-          )
-          .toList(),
+      items: analis.units.map((UnitModel unit) {
+        return DropdownMenuItem<String>(
+          value: unit.name,
+          child: Text(
+            unit.name,
+            overflow: TextOverflow.ellipsis, // Для длинных названий
+          ),
+        );
+      }).toList(),
       onChanged: (String? newValue) {
         if (newValue != null) {
           setState(() {

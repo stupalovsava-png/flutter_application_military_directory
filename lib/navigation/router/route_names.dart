@@ -10,4 +10,5 @@ class RouteNames {
   static const String theory = '/theory';
   static const String analysis = '/analysis';
   static const String formula = '/formula';
+  static const String manipulation = '/manipulation';
 }
