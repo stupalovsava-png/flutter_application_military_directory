@@ -4,12 +4,14 @@ import 'package:flutter_application_military_directory/features/anylysis/present
 import 'package:flutter_application_military_directory/features/calculators/presentation/formulae_screen.dart';
 import 'package:flutter_application_military_directory/features/equipment/presentation/screens/equipment_screen.dart';
 import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
+import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_screen.dart';
 
 import 'package:flutter_application_military_directory/presentation/main_screen.dart';
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drug_screen.dart';
 import 'package:flutter_application_military_directory/features/chek_lists/presentation/screens/check_lists_screen.dart';
 import 'package:flutter_application_military_directory/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter_application_military_directory/features/theory/presentation/screens/theory_screen.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 enum AppScreen {
   main,
@@ -20,6 +22,8 @@ enum AppScreen {
   analysis,
   formula,
   manipulation,
+  medicalHelp,
+
   setting;
 
   // Возвращает соответствующий виджет экрана
@@ -33,6 +37,7 @@ enum AppScreen {
     AppScreen.setting => const SettingsScreen(),
     AppScreen.equipment => const EquipmentScreen(),
     AppScreen.manipulation => const ManipulationScreen(),
+    AppScreen.medicalHelp => const MedicalScreen(),
   };
 
   // Название для отображения в BottomNavigationBar
@@ -48,6 +53,7 @@ enum AppScreen {
     AppScreen.drugs => 'Препараты',
     AppScreen.checklists => 'Чек-листы',
     AppScreen.setting => 'Настройки',
+    AppScreen.medicalHelp => 'Врачебная помощь',
   };
 
   // Иконка для BottomNavigationBar
@@ -59,8 +65,9 @@ enum AppScreen {
     AppScreen.main => Icons.home,
     AppScreen.drugs => Icons.medication,
     AppScreen.checklists => Icons.checklist,
-    AppScreen.setting => Icons.settings,
-    AppScreen.manipulation => Icons.accessibility_new,
+    AppScreen.setting => Icons.settings_rounded,
+    AppScreen.manipulation => Icons.accessibility_new_rounded,
+    AppScreen.medicalHelp => Symbols.stethoscope,
   };
 
   // Иконка активная (если хочешь отдельную)
@@ -70,6 +77,7 @@ enum AppScreen {
     AppScreen.theory => Icons.book,
     AppScreen.equipment => Icons.bolt,
     AppScreen.manipulation => Icons.accessibility_new,
+    AppScreen.medicalHelp => Icons.accessibility_new,
 
     AppScreen.main => Icons.home_filled,
     AppScreen.drugs => Icons.medication_liquid,

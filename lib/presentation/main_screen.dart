@@ -9,10 +9,10 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Убираем Главную из списка карточек
     final visibleScreens = [
       AppScreen.drugs,
       AppScreen.checklists,
+      AppScreen.medicalHelp,
       // AppScreen.theory,
       AppScreen.analysis,
       // AppScreen.equipment,
@@ -22,63 +22,76 @@ class MainScreen extends StatelessWidget {
       AppScreen.setting,
     ];
     return Scaffold(
-      appBar: AppBar(title: const Text('Войсковой врач')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-          ),
-          itemCount: visibleScreens.length,
-          itemBuilder: (context, index) {
-            final screen = visibleScreens[index];
-
-            return Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Text(
+                'Войсковой врач',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
               ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  if (screen == AppScreen.drugs) {
-                    context.go(RouteNames.drugs);
-                  } else if (screen == AppScreen.checklists) {
-                    context.go(RouteNames.chekLists);
-                  } else if (screen == AppScreen.setting) {
-                    context.push('/main/settings');
-                  } else if (screen == AppScreen.theory) {
-                    context.go('/main/theory');
-                  } else if (screen == AppScreen.manipulation) {
-                    context.go('/main/manipulation');
-                  } else if (screen == AppScreen.equipment) {
-                    context.go('/main/equipment');
-                  } else if (screen == AppScreen.analysis) {
-                    context.go('/main/analysis');
-                  } else if (screen == AppScreen.formula) {
-                    context.go(RouteNames.formula);
-                  }
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(screen.icon, size: 56, color: primaryColor),
-                    const SizedBox(height: 16),
-                    Text(
-                      screen.label,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: visibleScreens.length,
+                  itemBuilder: (context, index) {
+                    final screen = visibleScreens[index];
+
+                    return Card(
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () {
+                          if (screen == AppScreen.drugs) {
+                            context.go(RouteNames.drugs);
+                          } else if (screen == AppScreen.checklists) {
+                            context.go(RouteNames.chekLists);
+                          } else if (screen == AppScreen.setting) {
+                            context.push('/main/settings');
+                          } else if (screen == AppScreen.medicalHelp) {
+                            context.push('/main/medical_help');
+                          } else if (screen == AppScreen.theory) {
+                            context.go('/main/theory');
+                          } else if (screen == AppScreen.manipulation) {
+                            context.go('/main/manipulation');
+                          } else if (screen == AppScreen.equipment) {
+                            context.go('/main/equipment');
+                          } else if (screen == AppScreen.analysis) {
+                            context.go('/main/analysis');
+                          } else if (screen == AppScreen.formula) {
+                            context.go(RouteNames.formula);
+                          }
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(screen.icon, size: 56, color: primaryColor),
+                            const SizedBox(height: 16),
+                            Text(
+                              screen.label,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

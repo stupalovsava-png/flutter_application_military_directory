@@ -11,16 +11,14 @@ class SettingsScreen extends ConsumerWidget {
     final themeNotifier = ref.read(appThemeStateNotifier);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Настройки')),
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 40),
             const Text(
               'Выбор темы',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 120),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

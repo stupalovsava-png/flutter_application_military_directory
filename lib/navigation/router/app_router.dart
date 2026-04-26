@@ -1,4 +1,5 @@
 import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
+import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
@@ -45,6 +46,10 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'analysis',
                   builder: (context, state) => AnalysisScreen(),
+                ),
+                GoRoute(
+                  path: 'medical_help',
+                  builder: (context, state) => MedicalScreen(),
                 ),
               ],
             ),
