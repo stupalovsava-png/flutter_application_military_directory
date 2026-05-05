@@ -16,11 +16,7 @@ class _MedicalHelpDetailScreenState extends State<MedicalHelpDetailScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<String> _stageLabels = [
-    'Первая врачебная',
-    'Квалифицированная',
-    'Специализированная',
-  ];
+  int get _totalPages => widget.med.stages.length;
 
   @override
   void dispose() {
@@ -36,74 +32,39 @@ class _MedicalHelpDetailScreenState extends State<MedicalHelpDetailScreen> {
     );
   }
 
+  // ── Определяем человекочитаемый заголовок по типу ─────────────────────────
+
+  String _stageFullTitle(Help help) {
+    if (help is FirstDocHelpMpb) {
+      return '1-й уровень — Первая врачебная помощь (МПб)';
+    } else if (help is FirstDocHelpMedbrig) {
+      return '2-й уровень — Первая врачебная помощь (медр бр / ОМедО)';
+    } else if (help is QualfDocHelp) {
+      return '3-й уровень – квалифицированная врачебная помощь (ОМедБ, МедО СпН)';
+    } else if (help is SpecialfDocHelp) {
+      return '4-й уровень – специализированная, в том числе высокотехнологичная врачебная помощь (ОВГ)';
+    }
+    return help.title;
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            // Кнопка "Назад к списку"
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Row(
-                  children: [
-                    Icon(Icons.arrow_back, color: Colors.green, size: 24),
-                    SizedBox(width: 8),
-                    Text(
-                      'Назад к списку',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildAppBar(),
+            const SizedBox(height: 6),
 
-            // Заголовок
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                widget.med.title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            // PageView с этапами
             Expanded(
-              child: PageView(
+              child: PageView.builder(
                 controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() => _currentPage = index);
-                },
-                children: [
-                  _buildStagePage(
-                    stageTitle: 'Первая врачебная помощь',
-                    help: widget.med.firstDocHelp,
-                  ),
-                  _buildStagePage(
-                    stageTitle: 'Квалифицированная медицинская помощь',
-                    help: widget.med.qualfDocHelp,
-                  ),
-                  _buildStagePage(
-                    stageTitle: 'Специализированная медицинская помощь',
-                    help: widget.med.specialDocHelp,
-                  ),
-                ],
+                itemCount: _totalPages,
+                onPageChanged: (i) => setState(() => _currentPage = i),
+                itemBuilder: (_, i) => _buildStagePage(widget.med.stages[i]),
               ),
             ),
-
-            // Нижняя навигация
             _buildBottomNav(),
           ],
         ),
@@ -111,92 +72,219 @@ class _MedicalHelpDetailScreenState extends State<MedicalHelpDetailScreen> {
     );
   }
 
-  Widget _buildStagePage({required String stageTitle, required dynamic help}) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Заголовок этапа
-          Center(
-            child: Text(
-              stageTitle,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  // ── Шапка ─────────────────────────────────────────────────────────────────
+
+  Widget _buildAppBar() {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(width: 16),
+
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.arrow_back, color: Colors.green, size: 22),
+                  SizedBox(width: 6),
+                  Text(
+                    'Назад',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
-
-          // Место оказания помощи
-          Text(
-            help.place,
-            style: const TextStyle(fontSize: 15, color: Colors.grey),
-          ),
-
-          const SizedBox(height: 12),
-          _buildSection(title: 'Медицинская сортировка', text: help.sort),
-
-          // Мероприятия на этапе
-          _buildSection(
-            title: help.acivities.title.isNotEmpty
-                ? help.acivities.title
-                : 'Мероприятия на этапе',
-            text: help.acivities.toDoList,
-            add: help.acivities.additinal.isNotEmpty
-                ? help.acivities.additinal
-                : null,
-          ),
-
-          if (help.evacuation.isNotEmpty)
-            _buildSection(title: 'Эвакуация', text: help.evacuation),
-
-          const SizedBox(height: 16),
-        ],
-      ),
+          ],
+        ),
+        SizedBox(height: 8),
+        Text(
+          widget.med.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
+        ),
+      ],
     );
   }
 
-  Widget _buildSection({
-    required String title,
-    required String text,
-    String? add,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+  // ── Страница одного этапа ─────────────────────────────────────────────────
+
+  Widget _buildStagePage(Help help) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            color: primaryColor,
-            child: Center(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          // Заголовок уровня
+          Center(
+            child: Text(
+              _stageFullTitle(help),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(height: 6),
-          Text(text, style: const TextStyle(fontSize: 16)),
-          if (add != null && add.isNotEmpty) ...[
-            const SizedBox(height: 6),
-            Text(
-              add,
-              style: const TextStyle(fontSize: 16, color: Colors.redAccent),
+
+          const SizedBox(height: 8),
+
+          // Условия оказания помощи
+          if (help.place.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.location_on_outlined,
+                    size: 15,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      help.place,
+                      style: TextStyle(fontSize: 13, color: Colors.grey[500]),
+                    ),
+                  ),
+                ],
+              ),
             ),
+
+          // Медицинская сортировка
+          if (help.sort.isNotEmpty) ...[
+            _sectionHeader('Медицинская сортировка'),
+            const SizedBox(height: 6),
+            Text(help.sort, style: const TextStyle(fontSize: 15)),
+            const SizedBox(height: 12),
+          ],
+
+          // Мероприятия: итерируем по Map<String, Activities>
+          ...help.acivities.entries.map(
+            (entry) => _buildActivitiesBlock(
+              groupTitle: entry.key,
+              activities: entry.value,
+            ),
+          ),
+
+          // Эвакуация
+          if (help.evacuation.isNotEmpty) ...[
+            _buildEvacuationBlock(help.evacuation),
+            const SizedBox(height: 12),
           ],
         ],
       ),
     );
   }
 
+  // ── Блок одной группы мероприятий ────────────────────────────────────────
+
+  Widget _buildActivitiesBlock({
+    required String groupTitle,
+    required Activities activities,
+  }) {
+    // Определяем заголовок: если ключ пустой — дефолтный
+    final title = groupTitle.isNotEmpty ? groupTitle : 'Мероприятия на этапе';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _sectionHeader(title),
+        const SizedBox(height: 8),
+
+        // RichText из данных — рендерим напрямую
+        activities.toDoList,
+
+        // Дополнительный текст (additinal)
+        if (activities.additinal.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.orange.shade50,
+              border: Border.all(color: Colors.orange.shade200),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              activities.additinal,
+              style: TextStyle(fontSize: 15, color: Colors.orange.shade800),
+            ),
+          ),
+        ],
+
+        const SizedBox(height: 14),
+      ],
+    );
+  }
+
+  // ── Блок эвакуации ────────────────────────────────────────────────────────
+
+  Widget _buildEvacuationBlock(String text) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.green.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.green.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.local_hospital_outlined,
+                color: Colors.green,
+                size: 17,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                'Эвакуация',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green.shade800,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(text, style: const TextStyle(fontSize: 14, color: Colors.black)),
+        ],
+      ),
+    );
+  }
+
+  // ── Заголовок секции ──────────────────────────────────────────────────────
+
+  Widget _sectionHeader(String text) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+      decoration: BoxDecoration(
+        color: primaryColor.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: primaryColor,
+        ),
+      ),
+    );
+  }
+
+  // ── Нижняя навигация ──────────────────────────────────────────────────────
+
   Widget _buildBottomNav() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
@@ -210,7 +298,6 @@ class _MedicalHelpDetailScreenState extends State<MedicalHelpDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Стрелка назад
           IconButton(
             onPressed: _currentPage > 0
                 ? () => _goToPage(_currentPage - 1)
@@ -221,46 +308,32 @@ class _MedicalHelpDetailScreenState extends State<MedicalHelpDetailScreen> {
             ),
           ),
 
-          // Индикаторы страниц
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(3, (index) {
-                  final isActive = index == _currentPage;
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: isActive ? 24 : 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: isActive ? primaryColor : Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                _stageLabels[_currentPage],
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.w500,
+          // Точки
+          Row(
+            children: List.generate(_totalPages, (i) {
+              final active = i == _currentPage;
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                margin: const EdgeInsets.symmetric(horizontal: 3),
+                width: active ? 20 : 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: active ? primaryColor : Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(4),
                 ),
-              ),
-            ],
+              );
+            }),
           ),
 
-          // Стрелка вперёд
           IconButton(
-            onPressed: _currentPage < 2
+            onPressed: _currentPage < _totalPages - 1
                 ? () => _goToPage(_currentPage + 1)
                 : null,
             icon: Icon(
               Icons.arrow_forward_ios_rounded,
-              color: _currentPage < 2 ? primaryColor : Colors.grey.shade300,
+              color: _currentPage < _totalPages - 1
+                  ? primaryColor
+                  : Colors.grey.shade300,
             ),
           ),
         ],

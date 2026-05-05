@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class DrugCard extends StatelessWidget {
   final DrugModel drug;
@@ -9,12 +10,7 @@ class DrugCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DrugDetailScreen(drug: drug)),
-        );
-      },
+      onTap: () => context.push('/drugs/${drug.id}'),
 
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

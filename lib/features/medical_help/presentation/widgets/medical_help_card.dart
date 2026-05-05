@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_military_directory/features/medical_help/data/medical_help_model.dart';
-import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_help_detail_screen.dart'
-    hide Widget;
+import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_help_detail_screen.dart';
 
 class MedicalHelpCard extends StatelessWidget {
   final MedicalHelpModel med;

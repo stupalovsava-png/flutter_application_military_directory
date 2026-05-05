@@ -20,6 +20,7 @@ class MainScreen extends StatelessWidget {
       AppScreen.manipulation,
 
       AppScreen.setting,
+      AppScreen.about,
     ];
     return Scaffold(
       body: SafeArea(
@@ -68,6 +69,8 @@ class MainScreen extends StatelessWidget {
                             context.go('/main/analysis');
                           } else if (screen == AppScreen.formula) {
                             context.go(RouteNames.formula);
+                          } else if (screen == AppScreen.about) {
+                            context.go('/main/about');
                           }
                         },
                         child: Column(

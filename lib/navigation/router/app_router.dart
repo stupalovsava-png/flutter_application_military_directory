@@ -1,3 +1,6 @@
+import 'package:flutter_application_military_directory/features/abaout/about_screen.dart';
+import 'package:flutter_application_military_directory/features/drugs/data/drugs_data.dart';
+import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
 import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -51,18 +54,31 @@ final GoRouter appRouter = GoRouter(
                   path: 'medical_help',
                   builder: (context, state) => MedicalScreen(),
                 ),
+                GoRoute(
+                  path: 'about',
+                  builder: (context, state) => const AboutScreen(),
+                ),
               ],
             ),
           ],
         ),
 
-        // Branch 1 — Препараты
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: RouteNames.drugs,
               name: RouteNames.drugs,
               builder: (context, state) => const DrugScreen(),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  builder: (context, state) {
+                    final id = int.parse(state.pathParameters['id']!);
+                    final drug = drugList.firstWhere((d) => d.id == id);
+                    return DrugDetailScreen(drug: drug);
+                  },
+                ),
+              ],
             ),
           ],
         ),

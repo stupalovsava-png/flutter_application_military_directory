@@ -1,5 +1,6 @@
 // app_routes.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_application_military_directory/features/abaout/about_screen.dart';
 import 'package:flutter_application_military_directory/features/anylysis/presentation/analysis_screen.dart';
 import 'package:flutter_application_military_directory/features/calculators/presentation/formulae_screen.dart';
 import 'package:flutter_application_military_directory/features/equipment/presentation/screens/equipment_screen.dart';
@@ -23,7 +24,7 @@ enum AppScreen {
   formula,
   manipulation,
   medicalHelp,
-
+  about,
   setting;
 
   // Возвращает соответствующий виджет экрана
@@ -38,6 +39,7 @@ enum AppScreen {
     AppScreen.equipment => const EquipmentScreen(),
     AppScreen.manipulation => const ManipulationScreen(),
     AppScreen.medicalHelp => const MedicalScreen(),
+    AppScreen.about => const AboutScreen(),
   };
 
   // Название для отображения в BottomNavigationBar
@@ -54,6 +56,7 @@ enum AppScreen {
     AppScreen.checklists => 'Чек-листы',
     AppScreen.setting => 'Настройки',
     AppScreen.medicalHelp => 'Врачебная помощь',
+    AppScreen.about => 'О приложении',
   };
 
   // Иконка для BottomNavigationBar
@@ -68,6 +71,7 @@ enum AppScreen {
     AppScreen.setting => Icons.settings_rounded,
     AppScreen.manipulation => Icons.accessibility_new_rounded,
     AppScreen.medicalHelp => Symbols.stethoscope,
+    AppScreen.about => Icons.info_rounded,
   };
 
   // Иконка активная (если хочешь отдельную)
@@ -78,6 +82,7 @@ enum AppScreen {
     AppScreen.equipment => Icons.bolt,
     AppScreen.manipulation => Icons.accessibility_new,
     AppScreen.medicalHelp => Icons.accessibility_new,
+    AppScreen.about => Icons.info,
 
     AppScreen.main => Icons.home_filled,
     AppScreen.drugs => Icons.medication_liquid,

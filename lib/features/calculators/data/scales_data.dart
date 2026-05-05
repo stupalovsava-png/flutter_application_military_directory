@@ -2023,8 +2023,9 @@ class LisScale implements MedicalScale {
     // LIS = сумма / количество компонентов
     final lis = totalScore / 4;
     if (lis == 0) return '•Нет повреждения лёгких';
-    if (lis <= 2.5)
+    if (lis <= 2.5) {
       return '•Умеренное повреждение лёгких (LIS ${lis.toStringAsFixed(2)})\n•Наблюдение';
+    }
     return '•Тяжёлое повреждение лёгких / ARDS (LIS ${lis.toStringAsFixed(2)})\n•ИВЛ, ОРИТ';
   }
 }

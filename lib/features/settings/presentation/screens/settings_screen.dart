@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/core/theme/theme_provider.dart';
+import 'package:flutter_application_military_directory/navigation/router/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -14,9 +15,21 @@ class SettingsScreen extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const Text(
-              'Выбор темы',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                const Text(
+                  'Выбор темы',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => appRouter.go('/main'),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 120),
 

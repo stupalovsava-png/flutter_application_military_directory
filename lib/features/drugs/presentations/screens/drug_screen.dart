@@ -90,7 +90,7 @@ class _DrugScreenState extends State<DrugScreen> {
                   : ListView.builder(
                       itemCount: _filteredDrugs.length,
                       itemBuilder: (context, index) {
-                        final drug = drugList[index];
+                        final drug = _filteredDrugs[index];
                         return DrugCard(drug: drug);
                       },
                     ),
