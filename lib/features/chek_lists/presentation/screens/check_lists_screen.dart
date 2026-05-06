@@ -87,7 +87,7 @@ class _CheckListsState extends State<CheckLists> {
                   : ListView.builder(
                       itemCount: _filteredChek.length,
                       itemBuilder: (context, index) {
-                        final check = checkLists[index];
+                        final check = _filteredChek[index];
                         return CheckListsCard(check: check);
                       },
                     ),

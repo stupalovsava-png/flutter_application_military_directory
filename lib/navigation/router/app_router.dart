@@ -1,4 +1,6 @@
 import 'package:flutter_application_military_directory/features/abaout/about_screen.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/data/chek_list_data.dart';
+import 'package:flutter_application_military_directory/features/chek_lists/presentation/screens/check_list_detail_screen.dart';
 import 'package:flutter_application_military_directory/features/drugs/data/drugs_data.dart';
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
@@ -90,6 +92,16 @@ final GoRouter appRouter = GoRouter(
               path: RouteNames.chekLists,
               name: RouteNames.chekLists,
               builder: (context, state) => const CheckLists(),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  builder: (context, state) {
+                    final id = int.parse(state.pathParameters['id']!);
+                    final check = checkLists.firstWhere((c) => c.id == id);
+                    return ActionsProgressScreen(check: check);
+                  },
+                ),
+              ],
             ),
           ],
         ),

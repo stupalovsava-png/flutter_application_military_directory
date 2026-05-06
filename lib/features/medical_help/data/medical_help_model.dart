@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // additinal — дополнительный текст (выделяется красным / предупреждение)
 
 class Activities {
-  final RichText toDoList;
+  final Text toDoList;
   final String additinal;
 
   const Activities({required this.toDoList, required this.additinal});

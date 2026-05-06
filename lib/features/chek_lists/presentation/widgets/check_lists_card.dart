@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/features/chek_lists/data/check_list_model.dart';
-import 'package:flutter_application_military_directory/features/chek_lists/presentation/screens/check_list_detail_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class CheckListsCard extends StatelessWidget {
   final CheckListModel check;
@@ -20,12 +20,7 @@ class CheckListsCard extends StatelessWidget {
           ),
 
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ActionsProgressScreen(check: check),
-              ),
-            );
+            context.push('/cheklists/${check.id}');
           },
         ),
       ),

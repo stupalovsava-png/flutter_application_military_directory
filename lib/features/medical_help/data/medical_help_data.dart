@@ -14,26 +14,19 @@ final List<MedicalHelpModel> medicalHelpData = [
           'Оказывается в условиях перевязочной и/или на сортировочной площадке.',
       acivities: <String, Activities>{
         '': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   appRouter.push('/main/manipulations');
                 },
               text:
                   '1. Временная остановка наружного кровотечения из ран груди путем давящей повязки',
-              style: const TextStyle(
-                color: Colors.blue,
-                decoration: TextDecoration.underline,
-              ),
+              style: const TextStyle(color: Colors.blue),
               children: [
                 TextSpan(
                   text: 'тугой тампонадой раны\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('Переход по ссылке');
@@ -41,11 +34,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 ),
                 TextSpan(
                   text: '2. Устранение открытого пневмоторакса;\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('Переход по ссылке');
@@ -53,11 +42,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 ),
                 TextSpan(
                   text: 'Устранение открытого пневмоторакса;\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       print('Переход по ссылке');
@@ -66,11 +51,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 TextSpan(
                   text:
                       '3. Помощь при напряженном пневмотораксе путем перевода его в открытый;\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       // Действия при нажатии на ссылку
@@ -104,8 +85,8 @@ final List<MedicalHelpModel> medicalHelpData = [
           'Оказывается в условиях перевязочной и/или на сортировочной площадке.',
       acivities: <String, Activities>{
         'В перевязочной': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               text: '',
               children: [
                 TextSpan(
@@ -121,11 +102,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 TextSpan(
                   text:
                       'наложение табельных/импровизированных окклюзионных повязок ',
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                    fontSize: 15,
-                  ),
+                  style: const TextStyle(color: Colors.blue, fontSize: 15),
 
                   recognizer: TapGestureRecognizer()..onTap = () {},
                 ),
@@ -138,11 +115,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 TextSpan(
                   text:
                       '4. Нарастание подкожной эмфиземы при установленном дренаже (некупируемый напряженный пневмоторакс) → дополнительный дренаж в безопасном треугольнике. )\n',
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontSize: 15,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(color: Colors.blue, fontSize: 15),
 
                   recognizer: TapGestureRecognizer()..onTap = () {},
                 ),
@@ -174,7 +147,6 @@ final List<MedicalHelpModel> medicalHelpData = [
                 TextSpan(
                   text:
                       '9. Множественные переломы ребер → паравертебральная блокада. \n',
-                  style: TextStyles.underline,
 
                   recognizer: TapGestureRecognizer()..onTap = () {},
                 ),
@@ -212,8 +184,8 @@ final List<MedicalHelpModel> medicalHelpData = [
       place: 'Оказывается в условиях операционной.',
       acivities: <String, Activities>{
         'Мероприятия': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               text: '',
               children: [
                 TextSpan(
@@ -262,53 +234,33 @@ final List<MedicalHelpModel> medicalHelpData = [
       place: '',
       acivities: {
         '': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               text: '',
               children: [
                 TextSpan(
                   text: '1. Лечение свернувшегося гемоторакса\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
 
                   recognizer: TapGestureRecognizer()..onTap = () {},
                 ),
                 TextSpan(
                   text: '2. Лечение пневмоний у раненых в грудь\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                 ),
                 TextSpan(
                   text: '3. Лечение эмпиемы плевры\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                 ),
                 TextSpan(
                   text:
                       '4. Предупреждение и устранение последствий развития бронхиальных свищей\n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                 ),
                 TextSpan(
                   text:
                       '5 . Предупреждение и устранение последствий развития абсцесса легкого \n',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                 ),
               ],
             ),
@@ -334,8 +286,8 @@ final List<MedicalHelpModel> medicalHelpData = [
           'Оказывается в условиях перевязочной и/или на сортировочной площадке.',
       acivities: <String, Activities>{
         '': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               children: [
                 const TextSpan(
                   text:
@@ -349,11 +301,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 ),
                 TextSpan(
                   text: 'тройной прием',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => print('Переход по ссылке: тройной прием'),
                 ),
@@ -369,11 +317,7 @@ final List<MedicalHelpModel> medicalHelpData = [
                 const TextSpan(text: '5. ', style: TextStyle(fontSize: 15)),
                 TextSpan(
                   text: 'Коникотомия специальным набором',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => print('Переход по ссылке: коникотомия'),
                 ),
@@ -405,8 +349,8 @@ final List<MedicalHelpModel> medicalHelpData = [
           'Оказывается в условиях перевязочной и/или на сортировочной площадке.',
       acivities: <String, Activities>{
         'В перевязочной': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               text:
                   '1. Раненые без сознания (˂9 баллов ШКГ), брадипноэ (˂10 ЧДД), переломы нижней челюсти, кровотечение в полость рото- и носоглотки, эпилептические приступы → восстановление проходимости верхних дыхательных путей, введение воздуховода/интубация трахеи → коникотомия при неэффективном дыхании и при невозможности интубации трахеи;\n'
                   '2. Продолжающееся кровотечение из мягких тканей волосистой части головы → зажимы на видимые в ране фонтанирующие артерии → прошить и перевязать сосуды (в ряде случаев -- чрескожное прошивание поверхностной височной и затылочной артерий);\n'
@@ -435,8 +379,8 @@ final List<MedicalHelpModel> medicalHelpData = [
       place: 'Оказывается в условиях операционной.',
       acivities: <String, Activities>{
         'Мероприятия': Activities(
-          toDoList: RichText(
-            text: const TextSpan(
+          toDoList: Text.rich(
+            const TextSpan(
               children: [
                 TextSpan(text: '1. ', style: TextStyle(fontSize: 15)),
                 // Ссылка только на эту операцию
@@ -466,19 +410,18 @@ final List<MedicalHelpModel> medicalHelpData = [
       place: 'Оказывается в условиях операционной.',
       acivities: {
         'Основные принципы оказания хирургической помощи': Activities(
-          toDoList: RichText(
-            text: TextSpan(
-              text:
-                  '1. Оказание в максимально ранние сроки после ранения;\n'
-                  '2. Полноценный, исчерпывающий и завершенный характер оперативных вмешательств, исключающий необходимость повторных операций, прежде всего по поводу инфекционных осложнений.\n',
+          toDoList: Text.rich(
+            TextSpan(
+              text: '''1. Оказание в максимально ранние сроки после ранения;\n
+                2. Полноценный, исчерпывающий и завершенный характер оперативных вмешательств, исключающий необходимость повторных операций, прежде всего по поводу инфекционных осложнений.\n''',
               style: TextStyle(fontSize: 15),
             ),
           ),
           additinal: '',
         ),
         'Унифицированные диагностические мероприятия': Activities(
-          toDoList: RichText(
-            text: TextSpan(
+          toDoList: Text.rich(
+            TextSpan(
               text:
                   'Неогнестрельные раны головного мозга:\n'
                   '1. Краниография в 4-х проекциях;\n'

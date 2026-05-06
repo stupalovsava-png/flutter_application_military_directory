@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_military_directory/features/drugs/data/drug_model.dart';
-import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class DrugCard extends StatelessWidget {
