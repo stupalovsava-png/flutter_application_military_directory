@@ -14,6 +14,7 @@ dependencies:
   riverpod_annotation: ^4.0.2
   shared_preferences: ^2.5.5
   material_symbols_icons: ^4.2928.1
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -24,4 +25,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
+  assets:
+    - assets/icons/
+
+    

@@ -102,9 +102,20 @@ class MedicalHelpModel {
   /// Все этапы в порядке отображения — удобно для PageView
   List<Help> get stages => [
     firstDocHelpMpb,
-    ...extraStages,
     firstDocHelpMedbrig,
+    ...extraStages,
     qualfDocHelp,
     specialDocHelp,
   ];
+
+  /// Проверка, что этап содержит полезные данные
+  bool _isFilled(Help stage) {
+    return stage.sort.isNotEmpty ||
+        stage.place.isNotEmpty ||
+        stage.acivities.isNotEmpty ||
+        stage.evacuation.isNotEmpty;
+  }
+
+  /// Возвращает только те этапы, которые имеют контент
+  List<Help> get filledStages => stages.where(_isFilled).toList();
 }

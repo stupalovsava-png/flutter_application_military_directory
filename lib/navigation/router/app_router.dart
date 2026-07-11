@@ -5,6 +5,7 @@ import 'package:flutter_application_military_directory/features/drugs/data/drugs
 import 'package:flutter_application_military_directory/features/drugs/presentations/screens/drugs_detail_screen.dart';
 import 'package:flutter_application_military_directory/features/manuals/presentation/screens/manual_screen.dart';
 import 'package:flutter_application_military_directory/features/medical_help/presentation/screens/medical_screen.dart';
+import 'package:flutter_application_military_directory/features/medical_protocoles/presentation/protocol_list_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_application_military_directory/navigation/router/route_names.dart';
@@ -52,13 +53,17 @@ final GoRouter appRouter = GoRouter(
                   path: 'analysis',
                   builder: (context, state) => AnalysisScreen(),
                 ),
-                GoRoute(
-                  path: 'medical_help',
-                  builder: (context, state) => MedicalScreen(),
-                ),
+                // GoRoute(
+                //   path: 'medical_help',
+                //   builder: (context, state) => MedicalScreen(),
+                // ),
                 GoRoute(
                   path: 'about',
                   builder: (context, state) => const AboutScreen(),
+                ),
+                GoRoute(
+                  path: 'protocoles',
+                  builder: (context, state) => ProtocolListScreen(),
                 ),
               ],
             ),
@@ -89,19 +94,19 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: RouteNames.chekLists,
-              name: RouteNames.chekLists,
-              builder: (context, state) => const CheckLists(),
-              routes: [
-                GoRoute(
-                  path: ':id',
-                  builder: (context, state) {
-                    final id = int.parse(state.pathParameters['id']!);
-                    final check = checkLists.firstWhere((c) => c.id == id);
-                    return ActionsProgressScreen(check: check);
-                  },
-                ),
-              ],
+              path: RouteNames.medicalHelp,
+              name: RouteNames.medicalHelp,
+              builder: (context, state) => const MedicalScreen(),
+              // routes: [
+              //   GoRoute(
+              //     path: ':id',
+              //     builder: (context, state) {
+              //       final id = int.parse(state.pathParameters['id']!);
+              //       final check = checkLists.firstWhere((c) => c.id == id);
+              //       return ActionsProgressScreen(check: check);
+              //     },
+              //   ),
+              // ],
             ),
           ],
         ),

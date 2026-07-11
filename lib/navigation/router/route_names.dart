@@ -13,4 +13,5 @@ class RouteNames {
   static const String manipulation = '/manipulation';
   static const String medicalHelp = '/medical_help';
   static const String about = '/about';
+  static const String protocoles = '/protocoles';
 }

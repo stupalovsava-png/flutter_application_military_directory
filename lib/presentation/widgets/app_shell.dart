@@ -21,7 +21,7 @@ class AppShell extends StatelessWidget {
         screens: const [
           AppScreen.main,
           AppScreen.drugs,
-          AppScreen.checklists,
+          AppScreen.medicalHelp,
           AppScreen.formula,
         ],
       ),

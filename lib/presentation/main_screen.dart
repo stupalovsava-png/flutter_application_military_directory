@@ -11,14 +11,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final visibleScreens = [
       AppScreen.drugs,
-      AppScreen.checklists,
+      // AppScreen.checklists,
       AppScreen.medicalHelp,
       // AppScreen.theory,
       AppScreen.analysis,
       // AppScreen.equipment,
       AppScreen.formula,
       AppScreen.manipulation,
-
       AppScreen.setting,
       AppScreen.about,
     ];
@@ -53,12 +52,12 @@ class MainScreen extends StatelessWidget {
                         onTap: () {
                           if (screen == AppScreen.drugs) {
                             context.go(RouteNames.drugs);
-                          } else if (screen == AppScreen.checklists) {
+                            // } else if (screen == AppScreen.checklists) {
                             context.go(RouteNames.chekLists);
                           } else if (screen == AppScreen.setting) {
                             context.push('/main/settings');
                           } else if (screen == AppScreen.medicalHelp) {
-                            context.push('/main/medical_help');
+                            context.go(RouteNames.medicalHelp);
                           } else if (screen == AppScreen.theory) {
                             context.go('/main/theory');
                           } else if (screen == AppScreen.manipulation) {
